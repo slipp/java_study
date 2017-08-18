@@ -13,16 +13,16 @@ public class Lottos {
         return lottos.size();
     }
 
-    @Override
-    public String toString() {
-        return "Lottos [lottos=" + lottos + "]";
-    }
-
     public Result match(WinningLotto winningLotto) {
         Result result = new Result(lottos.size());
         for (UserLotto userLotto : lottos) {
             result.add(userLotto.countOfMatch(winningLotto));
         }
         return result;
+    }
+    
+    @Override
+    public String toString() {
+        return "Lottos [lottos=" + lottos + "]";
     }
 }
