@@ -13,7 +13,7 @@ public class RosterReporterTest {
     @Test
     public void report() throws Exception {
         Date startDate = new Date();
-        CourseSession session = new CourseSession("ENGL", "200", startDate);
+        CourseSession session = CourseSession.create("ENGL", "200", startDate);
         session.enroll(new Student("A"));
         session.enroll(new Student("B"));
         

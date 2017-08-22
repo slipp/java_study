@@ -1,7 +1,10 @@
 package sis.studentinfo;
 
 public class Student {
+	static final String IN_STATE = "경기도";
 	String name;
+	private int credits;
+	private String state;
 	
 	public Student(String name) {
 		this.name = name;
@@ -10,6 +13,30 @@ public class Student {
 	public String getName() {
 		return this.name;
 	}
+	
+	public int getCredits() {
+		return this.credits;
+	}
+	
+	public void addCredits(int credits) {
+		this.credits += credits;
+	}
+	
+	public boolean isFullTime() {
+		return this.credits >= 12;
+	}
+	
+	public void setState(String state) {
+		this.state = state;
+	}
+	
+	public boolean isInState() {
+        if (state == null) {
+            return false;
+        }
+
+        return state.equals(Student.IN_STATE);
+    }
 
 	@Override
 	public int hashCode() {
@@ -35,4 +62,5 @@ public class Student {
 			return false;
 		return true;
 	}
+	
 }
