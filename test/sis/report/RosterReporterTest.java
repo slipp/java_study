@@ -10,6 +10,7 @@ import sis.studentinfo.CourseSession;
 import sis.studentinfo.Student;
 
 public class RosterReporterTest {
+	
     @Test
     public void report() throws Exception {
         Date startDate = new Date();
@@ -19,6 +20,7 @@ public class RosterReporterTest {
         
         RosterReporter rosterReporter = new RosterReporter(session);
         String rosterReport = rosterReporter.getReport();
+        System.out.println(rosterReport);
         assertEquals(
                 RosterReporter.ROSTER_REPORT_HEADER + 
                 "A" + RosterReporter.NEWLINE + 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CourseSession {
+public class CourseSession implements Comparable<CourseSession>{
 	static final String NEWLINE = System.getProperty("line.separator");
 	static final String ROSTER_REPORT_HEADER = "학생 목록" + NEWLINE + "----" + NEWLINE;
 	
@@ -20,6 +20,17 @@ public class CourseSession {
 		this.number = number;
 		this.startDate = startDate;
 		CourseSession.increaseCount();
+	}
+	
+	@Override
+	public int compareTo(CourseSession session) {
+		int result = department.compareTo(session.department);
+		System.out.println(result);
+		
+		if (result == 0) {
+			return session.number.compareTo(number);
+		}
+		return result;
 	}
 	
 	public static CourseSession create(String department, String number, Date startDate) {
@@ -98,6 +109,6 @@ public class CourseSession {
 	public boolean equals(Object obj) {
 		return true;
 	}
-	
+
 	
 }
