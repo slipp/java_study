@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lotto.model.Result.Match;
+
 public class WinningLotto {
     private static final Map<Integer, Integer> winningMoney = new HashMap<>();
     static {
@@ -27,10 +29,14 @@ public class WinningLotto {
         this.lotto = lotto;
     }
     
-    public int countOfMatch(List<Integer> lotto) {
+    public Match countOfMatch(List<Integer> lotto) {
         List<Integer> result = new ArrayList<>(lotto);
         result.retainAll(this.lotto);
-        return result.size();
+
+        if (result.size() < 3) {
+            return null;
+        }
+        return Match.valueOf(result.size());
     }
     
     public static int getWinningmoney(int countOfMatch) {

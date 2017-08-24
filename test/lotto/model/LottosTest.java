@@ -1,6 +1,6 @@
 package lotto.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,10 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import lotto.model.Lottos;
-import lotto.model.Result;
-import lotto.model.UserLotto;
-import lotto.model.WinningLotto;
+import lotto.model.Result.MatchingResult;
 
 public class LottosTest {
 
@@ -26,10 +23,12 @@ public class LottosTest {
         Lottos lottos = new Lottos(userLottos);
         WinningLotto lotto = new WinningLotto("1, 2, 3, 4, 5, 6");
         Result result = lottos.match(lotto);
+        List<MatchingResult> matchingResult = result.getResults();
+        
         assertEquals(4, result.getCountOfLotto());
-        assertEquals(0, result.getCountOfMatch3());
-        assertEquals(1, result.getCountOfMatch4());
-        assertEquals(0, result.getCountOfMatch5());
-        assertEquals(1, result.getCountOfMatch6());
+        assertEquals(0, matchingResult.get(0).getCountOfMatchingLotto());
+        assertEquals(1, matchingResult.get(1).getCountOfMatchingLotto());
+        assertEquals(0, matchingResult.get(2).getCountOfMatchingLotto());
+        assertEquals(1, matchingResult.get(3).getCountOfMatchingLotto());
     }
 }

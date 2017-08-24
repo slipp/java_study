@@ -1,63 +1,110 @@
 package lotto.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Result {
-    private int countOfMatch3 = 0, countOfMatch4 = 0, countOfMatch5 = 0, countOfMatch6 = 0;
+    public enum Match {
+        MATCH3(3, 5000),
+        MATCH4(4, 50000),
+        MATCH5(5, 1500000),
+        MATCH6(6, 2000000000);
+        
+        private int countOfMatch;
+        private int winningMoney;
+
+        private Match(int countOfMatch, int winningMoney) {
+            this.countOfMatch = countOfMatch;
+            this.winningMoney = winningMoney;
+        }
+
+        public static Match valueOf(int countOfMatch) {
+            Match[] values = values();
+            for (Match match2 : values) {
+                if (match2.countOfMatch == countOfMatch) {
+                    return match2;
+                }
+            }
+            throw new IllegalArgumentException(countOfMatch + "는 유효하지 않은 값입니다.");
+        }
+
+        public long winningMoney(int countOfMatchingLotto) {
+            return winningMoney * countOfMatchingLotto;
+        }
+        
+        public int getCountOfMatch() {
+            return countOfMatch;
+        }
+    }
+    
+    private List<MatchingResult> results = new ArrayList<>();
+    
     private int countOfLotto;
 
     public Result(int countOfLotto) {
         this.countOfLotto = countOfLotto;
+        
+        results.add(new MatchingResult(Match.MATCH3));
+        results.add(new MatchingResult(Match.MATCH4));
+        results.add(new MatchingResult(Match.MATCH5));
+        results.add(new MatchingResult(Match.MATCH6));
+    }
+
+    public void add(Match match) {
+        if (match == null) {
+            return;
+        }
+        
+        results.stream().filter(e -> e.supports(match)).findFirst().get().match();
+    }
+
+    public double getProfit() {
+        int buyingMoney = countOfLotto * UserLotto.MONEY_PER_TICKET;
+        long winningMoney = 0;
+        
+        for (MatchingResult matchingResult : results) {
+            winningMoney += matchingResult.winningMoney();
+        }
+        
+        System.out.println("Winning Money : " + winningMoney);
+        return (winningMoney * 100) / buyingMoney;
+    }
+    
+    public List<MatchingResult> getResults() {
+        return Collections.unmodifiableList(results);
     }
     
     public int getCountOfLotto() {
         return countOfLotto;
     }
     
-    public int getCountOfMatch3() {
-        return countOfMatch3;
-    }
-    
-    public int getCountOfMatch4() {
-        return countOfMatch4;
-    }
-    
-    public int getCountOfMatch5() {
-        return countOfMatch5;
-    }
-    
-    public int getCountOfMatch6() {
-        return countOfMatch6;
-    }
-    
-    public void add(int countOfMatch) {
-        if (countOfMatch == 3) {
-            countOfMatch3++;
-            return;
+    public static class MatchingResult {
+        private int countOfMatchingLotto = 0;
+        private Match match;
+
+        private MatchingResult(Match match) {
+            this.match = match;
         }
         
-        if (countOfMatch == 4) {
-            countOfMatch4++;
-            return;
+        public boolean supports(Match match) {
+            return this.match == match;
         }
         
-        if (countOfMatch == 5) {
-            countOfMatch5++;
-            return;
+        public void match() {
+            countOfMatchingLotto++;
         }
         
-        if (countOfMatch == 6) {
-            countOfMatch6++;
-            return;
+        public int getCountOfMatchingLotto() {
+            return countOfMatchingLotto;
         }
-    }
-    
-    public double getProfit() {
-        int buyingMoney = countOfLotto * UserLotto.MONEY_PER_TICKET;
-        int winningMoney = 0;
-        winningMoney += (countOfMatch3 * WinningLotto.getWinningmoney(3)); 
-        winningMoney += (countOfMatch4 * WinningLotto.getWinningmoney(4)); 
-        winningMoney += (countOfMatch5 * WinningLotto.getWinningmoney(5)); 
-        winningMoney += (countOfMatch6 * WinningLotto.getWinningmoney(6));
-        System.out.println("Winning Money : " + winningMoney);
-        return (winningMoney * 100)/buyingMoney;
+        
+        public int getCountOfMatch() {
+            return match.getCountOfMatch();
+        }
+        
+        public long winningMoney() {
+            return match.winningMoney(countOfMatchingLotto);
+        }
     }
 }

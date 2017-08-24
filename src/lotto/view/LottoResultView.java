@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.model.Result;
+import lotto.model.Result.MatchingResult;
 import lotto.model.WinningLotto;
 
 public class LottoResultView {
@@ -11,10 +12,10 @@ public class LottoResultView {
     public static void show(Result result) {
         StringBuilder sb = new StringBuilder(LOTTO_REPORT_HEADER);
         
-        appendByMatch(sb, 3, result.getCountOfMatch3());
-        appendByMatch(sb, 4, result.getCountOfMatch4());
-        appendByMatch(sb, 5, result.getCountOfMatch5());
-        appendByMatch(sb, 6, result.getCountOfMatch6());
+        Iterable<MatchingResult> matchingResults = result.getResults();
+        for (MatchingResult matchingResult : matchingResults) {
+            appendByMatch(sb, matchingResult.getCountOfMatch(), matchingResult.getCountOfMatchingLotto());
+        }
         sb.append("총 수익률은 ");
         sb.append(result.getProfit());
         sb.append("%입니다.");
