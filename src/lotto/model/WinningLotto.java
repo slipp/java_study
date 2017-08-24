@@ -2,21 +2,11 @@ package lotto.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import lotto.model.Result.Match;
 
 public class WinningLotto {
-    private static final Map<Integer, Integer> winningMoney = new HashMap<>();
-    static {
-        winningMoney.put(3,  5000);
-        winningMoney.put(4,  50000);
-        winningMoney.put(5,  1500000);
-        winningMoney.put(6,  2000000000);
-    }
-    
     private List<Integer> lotto;
 
     public WinningLotto(String lottoNo) {
@@ -37,9 +27,5 @@ public class WinningLotto {
             return null;
         }
         return Match.valueOf(result.size());
-    }
-    
-    public static int getWinningmoney(int countOfMatch) {
-        return winningMoney.get(countOfMatch);
     }
 }

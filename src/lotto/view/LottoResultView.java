@@ -1,8 +1,8 @@
 package lotto.view;
 
 import lotto.model.Result;
+import lotto.model.Result.Match;
 import lotto.model.Result.MatchingResult;
-import lotto.model.WinningLotto;
 
 public class LottoResultView {
     public static final String NEWLINE = System.getProperty("line.separator");
@@ -26,7 +26,7 @@ public class LottoResultView {
     private static void appendByMatch(StringBuilder sb, int countOfMatch, int noOfMatch) {
         sb.append(countOfMatch);
         sb.append("개 일치 (");
-        sb.append(WinningLotto.getWinningmoney(countOfMatch));
+        sb.append(Match.valueOf(countOfMatch).getWinningMoney());
         sb.append(") - ");
         sb.append(noOfMatch);
         sb.append("개");
