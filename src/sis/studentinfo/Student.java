@@ -1,13 +1,30 @@
 package sis.studentinfo;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Student {
+	public enum Grade {
+		A, B, C, D, F;
+	}
+	
 	static final String IN_STATE = "경기도";
 	String name;
 	private int credits;
 	private String state;
+	private List<Grade> grades = new LinkedList<>();
+	private GradingStrategy gradingStrategy;
 	
 	public Student(String name) {
 		this.name = name;
+	}
+	
+	public List<Grade> getGrades() {
+		return grades;
+	}
+	
+	public void setGradingStrategy(GradingStrategy gradingStrategy) {
+		this.gradingStrategy = gradingStrategy;
 	}
 	
 	public String getName() {
@@ -37,7 +54,23 @@ public class Student {
 
         return state.equals(Student.IN_STATE);
     }
-
+	
+	public void addGrade(Grade grade) {
+		grades.add(grade);
+	}
+	
+	public double getGpa() {
+		if (grades.isEmpty()) {
+			return 0.0;
+		}
+		
+		double total = 0.0;
+		for (Grade grade : grades) {
+			total += gradingStrategy.getPoint(grade);
+		}
+		return total / grades.size();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

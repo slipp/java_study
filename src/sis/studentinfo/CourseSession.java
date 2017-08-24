@@ -28,7 +28,7 @@ public class CourseSession implements Comparable<CourseSession>{
 		System.out.println(result);
 		
 		if (result == 0) {
-			return session.number.compareTo(number);
+			return number.compareTo(session.number);
 		}
 		return result;
 	}
