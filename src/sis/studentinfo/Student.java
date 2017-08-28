@@ -5,7 +5,17 @@ import java.util.List;
 
 public class Student {
 	public enum Grade {
-		A, B, C, D, F;
+		A(4), B(3), C(2), D(1), F(0);
+		
+		private int grade;
+		
+		private Grade(int grade) {
+			this.grade = grade;
+		}
+		
+		public int getGrade() {
+			return grade;
+		}
 	}
 	
 	static final String IN_STATE = "경기도";

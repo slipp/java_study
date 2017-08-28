@@ -23,7 +23,18 @@ public class Result {
             return;
         }
         
-        results.stream().filter(e -> e.supports(match)).findFirst().get().match();
+        // results.stream().filter(e -> e.supports(match)).findFirst().get().match();
+        
+        MatchingResult matchingResult = null;
+        for (MatchingResult e : results) {
+			if (e.supports(match)) {
+				matchingResult = e;
+			}
+		}
+        
+        if (matchingResult != null) {
+        	matchingResult.match();
+        }
     }
 
     public double getProfit() {
