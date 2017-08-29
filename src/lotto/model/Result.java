@@ -25,17 +25,22 @@ public class Result {
         
         // results.stream().filter(e -> e.supports(match)).findFirst().get().match();
         
-        MatchingResult matchingResult = null;
-        for (MatchingResult e : results) {
-			if (e.supports(match)) {
-				matchingResult = e;
-			}
-		}
+        MatchingResult matchingResult = getMatchingResult(match);
         
         if (matchingResult != null) {
         	matchingResult.match();
         }
     }
+
+	private MatchingResult getMatchingResult(Match match) {
+		MatchingResult matchingResult = null;
+        for (MatchingResult e : results) {
+			if (e.supports(match)) {
+				matchingResult = e;
+			}
+		}
+		return matchingResult;
+	}
 
     public double getProfit() {
         int buyingMoney = countOfLotto * UserLotto.MONEY_PER_TICKET;
@@ -55,6 +60,10 @@ public class Result {
     
     public int getCountOfLotto() {
         return countOfLotto;
+    }
+    
+    public int getCountOfMatch(Match match) {
+    	return getMatchingResult(match).getCountOfMatch();
     }
     
     public enum Match {
