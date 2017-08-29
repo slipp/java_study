@@ -63,12 +63,16 @@ body {
 </head>
 <body>
 <form class="form-show" method="post" action="/matchLotto">
-	<div class="form-show-div" class="form-group">
-	<h2>지난 주 당첨 번호를 입력</br></h2>예)
-			1,2,3,4,5,6,7 (꼭! 7개를 입력해주세요.)</br>7번째는 보너스 번호, lottery입력시 랜덤 생성</br>
-			<input type="text" id="inputMoney" class="form-control"
-				name="winningNumber" placeholder="1,2,3,4,5,6,7 or lottery" required autofocus>
+	<div class="form-show-div form-group">
+		<label for="winningNumber">지난 주 당첨 번호</label>
+		<input type="text" id="inputMoney" class="form-control"
+				name="winningNumber" placeholder="1,2,3,4,5,6" required autofocus>
 	</div>
+	<div class="form-show-div form-group">
+    	<label for="bonusNumber">2등 보너스 볼</label>
+    	<input type="text" class="form-control" id="bonusNumber" 
+    		name="bonusNumber">
+  	</div>
 	<div class="submit-button">
 		<button class="btn btn-lg btn-primary btn-block" type="submit">당첨 번호</button>
 	</div>
