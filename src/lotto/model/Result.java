@@ -62,8 +62,8 @@ public class Result {
         return countOfLotto;
     }
     
-    public int getCountOfMatch(Match match) {
-    	return getMatchingResult(match).getCountOfMatch();
+    public int getCountOfMatchingLotto(Match match) {
+        return getMatchingResult(match).getCountOfMatchingLotto();
     }
     
     public enum Match {
